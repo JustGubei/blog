@@ -1,0 +1,80 @@
+
+{% extends 'base_main.html' %}
+
+{% block title %}
+HouChenhao'blog
+{% endblock %}
+
+
+
+
+
+{% block content %}
+<article>
+  <aside class="l_box">
+
+      <div class="about_me" style="height: 200px">
+        <h2>关于我</h2>
+        <ul>
+          <i style="height:120px"><img src="/static/images/1.jpg"></i>
+          <p><b>侯晨皓</b></p>
+        </ul>
+      </div>
+
+      <div class="wdxc">
+        <h2>我的相册</h2>
+        <ul>
+            {% for i in photo %}
+          <li><a href="/"><img src="/media/{{ i.img }}"></a></li>
+            {% endfor %}
+        </ul>
+      </div>
+
+
+
+
+      {% include 'base_left.html' %}
+
+
+
+      <div class="links">
+        <h2>友情链接</h2>
+        <ul>
+          <a href="https://github.com/houchenhao">Github</a>
+        </ul>
+      </div>
+
+  </aside>
+  <main class="r_box">
+    {% for a in art %}
+    <li><i><a href=""><img src="/static/images/1.jpg"></a></i>
+      <h3><a href="{% url 'app:info' a.id %}">{{ a.title }}</a></h3>
+      <p>{{ a.content | safe }}</p>
+    </li>
+    {% endfor %}
+  </main>
+</article>
+
+<!--<script>-->
+        <!--function add1(){-->
+        <!--click_num += 1-->
+        <!--$.ajax({-->
+            <!--url:'/app/index/',-->
+            <!--type:'POST',-->
+            <!--data:'click_num':click_num,-->
+            <!--dataType:'json',-->
+
+            <!--success: function(result){-->
+                <!--console.log(click_num)-->
+
+
+            <!--},-->
+            <!--error: function(){-->
+                <!--alert('失败')-->
+            <!--}-->
+        <!--})-->
+
+
+   <!--}-->
+<!--</script>-->
+{% endblock %}

@@ -1,0 +1,50 @@
+
+{% extends 'base_main.html' %}
+
+{% block title %}
+照片
+{% endblock %}
+
+{% block content %}
+<article>
+  <div class="picbox">
+    <ul>
+        {% for i in imgs %}
+
+        <li data-scroll-reveal="enter bottom over 1s"  style="width:220px;height:280px">
+          <a href="/">
+              <i><img src="/media/{{ i.img }}" style="width:180px;height:180px" ></i>
+          </a>
+            <a class="picinfo">
+              <h3>{{ i.name }}</h3>
+            </a>
+        </li>
+
+
+        {% endfor %}
+    </ul>
+
+  </div>
+  <div class="pagelist">
+
+      {% if imgs.has_previous %}
+      <a href="{% url 'app:share' %}?page={{ imgs.previous_page_number }}">上一页</a>
+      {% endif %}
+
+      {% for i in imgs.paginator.page_range %}
+      <a href="{% url 'app:share' %}?page={{ i }}" class="curPage">{{ i }}</a>&nbsp;&nbsp;
+      {% endfor %}
+
+      {% if imgs.has_next %}
+      <a href="{% url 'app:share' %}?page={{ imgs.next_page_number }}">下一页</a>
+      {% endif %}
+
+  </div>
+
+
+
+
+
+
+</article>
+{% endblock %}
