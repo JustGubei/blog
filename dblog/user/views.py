@@ -1,4 +1,4 @@
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password, make_password
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 # Create your views here.
@@ -18,7 +18,7 @@ def index(request):
     return render(request,'index.html')
 
 
-#登陆
+# 登陆
 def login(request):
     if request.method == 'GET':
         return render(request,'login.html')
@@ -33,28 +33,18 @@ def login(request):
 
             if user:
                 if password == user.password:
-
+                    request.session['user_id'] = user.id
                     return HttpResponseRedirect(reverse('user:index'))
 
-            else:
-                msg = '账号或密码错误'
-                return render(request,'login.html')
+        else:
+            msg = '账号或密码错误'
+            return render(request,'login.html')
 
 
 
 
 
-        # username = request.POST.get('username')
-        # password = request.POST.get('password')
-        # user  = User.objects.filter(username=username).first()
-        # if user:
-        #     if password == user.password:
-        #
-        #         return HttpResponseRedirect(reverse('user:index'))
-        #
-        # else:
-        #     msg = '账号或密码错误'
-        #     return render(request,'login.html')
+
 
 
 
@@ -114,4 +104,15 @@ def photo(request):
     return render(request, 'photo.html')
 
 
+
+#退出
+
+def logout(request):
+    if request.method == 'GET':
+        # 删掉session中的键值对
+        del request.session['user_id']
+
+
+
+        return HttpResponseRedirect(reverse('user:login'))
 
